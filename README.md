@@ -23,3 +23,17 @@ class RAGNeuron(nn.Module):
         x = self.activation(x)
         x = self.fc2(x)
         return x
+
+# Combine the retrieved information with the input features
+combined_input = torch.cat((x, retrieved_information), dim=1)
+
+# Pass the combined input through the neural network layers
+x = self.fc1(combined_input)
+x = self.activation(x)
+
+# Apply the formula y = 1 on the square root of x
+y = 1 / torch.sqrt(x)
+
+# Pass the modified input through the remaining layer
+x = self.fc2(y)
+return x
